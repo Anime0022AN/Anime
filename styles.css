@@ -120,6 +120,7 @@ canvas { border: 2px solid #000; background: #fff; cursor: crosshair; }
 .jutsu { background-color: #90ff15; }
 .pinterest { background-color: #efefef; }
 .blysky { background-color: #87ceeb; }
+.reddit { background-color: #ff5700; }
 
 @media (max-width: 600px) {
     .social-button {
