@@ -1,0 +1,136 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #121212;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    padding: 20px;
+    max-width: 100%;
+}
+
+.profile-img {
+    width: 40vw;
+    max-width: 180px;
+    height: auto;
+    border-radius: 25%;
+    margin-top: 20px;
+    transition: transform 0.3s;
+}
+
+.profile-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px 5px #c400eb;
+}
+
+.social-links a {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #c400eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.social-links a:hover {
+    background-color: #86008f;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px 5px #c400eb;
+}
+
+.stat {
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin: 10px auto;
+    background-color: #1e1e1e;
+    max-width: 90%;
+    transition: transform 0.3s;
+}
+.stat:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px 5px #c400eb;
+}
+
+.info, .extra-info {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.info:hover, .extra-info:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px 5px #c400eb;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+        
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    width: 160px;
+    transition: transform 0.3s;
+}
+.social-button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px 5px #c400eb;
+}
+
+.social-button img {
+    width: 20px;
+    height: 20px;
+}
+.controls { margin-top: 10px; display: flex; gap: 10px; }
+canvas { border: 2px solid #000; background: #fff; cursor: crosshair; }
+
+.youtube { background-color: #FF0000; }
+.instagram { background-color: #C13584; }
+.tiktok { background-color: #000000; }
+.discord { background-color: #7289DA; }
+.Telegram { background-color: #0088cc; }
+.x { background-color: #000000; }
+.twitch { background-color: #9146ff; }
+.tree { background-color: #009c17; }
+.spotify { background-color: #1db954; }
+.DA { background-color: #F57D07; }
+.steam { background-color: #1B2838; }
+.jutsu { background-color: #90ff15; }
+.pinterest { background-color: #efefef; }
+
+@media (max-width: 600px) {
+    .social-button {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .profile-img {
+        width: 50vw;
+    }
+
+    .stat, .info, .extra-info {
+        padding: 10px;
+    }
+}
