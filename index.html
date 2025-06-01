@@ -111,6 +111,8 @@
             width: 20px;
             height: 20px;
         }
+        .controls { margin-top: 10px; display: flex; gap: 10px; }
+        canvas { border: 2px solid #000; background: #fff; cursor: crosshair; }
 
         .youtube { background-color: #FF0000; }
         .instagram { background-color: #C13584; }
@@ -214,5 +216,92 @@
             <iframe width="560" height="315" src="https://www.youtube.com/embed/LZQumHRpsog?si=4ADkhqjUm_rB2Pca" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
     </div>
+    <div class="extra-info">
+        <h1>Subscribe here 🖊️</h1>
+        <canvas id="signatureCanvas" width="600" height="400"></canvas>
+        <div class="controls">
+            <button onclick="toggleMode()">Mode: Drawing ✏️</button>
+            <button onclick="clearCanvas()">Clean up</button>
+        </div>
+    </div>
+    <script>
+    const canvas = document.getElementById('signatureCanvas');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+    let erasing = false;
+    let modeButton = document.querySelector('.controls button');
+    let author = localStorage.getItem('authorName') || prompt("Enter your name (only the author can delete):");
+    localStorage.setItem('authorName', author);
+
+    window.onload = function () {
+      const savedData = localStorage.getItem('signature');
+      if (savedData) {
+        const img = new Image();
+        img.src = savedData;
+        img.onload = () => ctx.drawImage(img, 0, 0);
+      }
+    };
+
+    canvas.addEventListener('mousedown', (e) => {
+      drawing = true;
+      ctx.beginPath();
+      ctx.moveTo(e.offsetX, e.offsetY);
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (!drawing) return;
+
+      if (erasing) {
+        ctx.clearRect(e.offsetX - 5, e.offsetY - 5, 10, 10);
+      } else {
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'black';
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+      }
+      saveDrawing();
+    });
+
+    canvas.addEventListener('mouseup', () => {
+      drawing = false;
+      saveDrawing();
+    });
+
+    canvas.addEventListener('mouseleave', () => {
+      drawing = false;
+    });
+
+    function saveDrawing() {
+      const dataURL = canvas.toDataURL();
+      localStorage.setItem('signature', dataURL);
+    }
+
+    function clearCanvas() {
+      if (confirm("Clear entire signature?")) {
+        if (isAuthor()) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          localStorage.removeItem('signature');
+        } else {
+          alert("Only the author can clear.");
+        }
+      }
+    }
+
+    function toggleMode() {
+      if (!isAuthor() && !erasing) {
+        alert("Only the author can use the eraser.");
+        return;
+      }
+
+      erasing = !erasing;
+      modeButton.textContent = erasing ? "Mode: Eraser 🧽" : "Mode: Drawing ✏️
+    }
+
+    function isAuthor() {
+      const currentUser = author;
+      const savedAuthor = localStorage.getItem('Anime0022');
+      return currentUser === savedAuthor;
+    }
+  </script>
 </body>
 </html>
