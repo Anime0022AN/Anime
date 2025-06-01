@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Anime0022♑</title>
-    <link rel="icon" href="img\Anime0022.jpg">
+    <link rel="icon" href="img/Anime0022.jpg">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -118,7 +118,6 @@
         .instagram { background-color: #C13584; }
         .tiktok { background-color: #000000; }
         .discord { background-color: #7289DA; }
-        .steam { background-color: #171a21; }
         .Telegram { background-color: #0088cc; }
         .x { background-color: #000000; }
         .pinterest { background-color: #e60023; }
@@ -149,7 +148,7 @@
 <body>
     <div class="container">
         <h1>Welcome to Anime0022 Official Site</h1>
-        <img src="img\Anime0022.jpg" alt="Anime0022 Profile Picture" class="profile-img" />
+        <img src="img/Anime0022.jpg" alt="Anime0022 Profile Picture" class="profile-img" />
         
         <div class="stat">
             <h2>My Data</h2>
@@ -180,7 +179,7 @@
             <a href="https://linktr.ee/Anime0022" target="_blank" class="social-button tree">
                 <img src="https://cdn3d.iconscout.com/3d/premium/thumb/linktree-3d-icon-download-in-png-blend-fbx-gltf-file-formats--social-media-logos-logo-brand-pack-design-development-icons-9148177.png?f=webp" alt="Linktree"> Linktree
             </a>
-            <a href="https://www.twitch.tv/anime0022_" target="_blank" class="social-button twich">
+            <a href="https://www.twitch.tv/anime0022_" target="_blank" class="social-button twitch">
                 <img src="https://cdn-icons-png.flaticon.com/512/3991/3991943.png" alt="Twitch"> Twitch
             </a>
             <a href="https://www.donationalerts.com/r/anime0022" target="_blank" class="social-button DA">
@@ -220,8 +219,8 @@
         <h1>Subscribe here 🖊️</h1>
         <canvas id="signatureCanvas" width="600" height="400"></canvas>
         <div class="controls">
-            <button onclick="toggleMode()">Mode: Drawing ✏️</button>
-            <button onclick="clearCanvas()">Clean up</button>
+            <button id="toggleModeBtn" onclick="toggleMode()">Mode: Drawing ✏️</button>
+            <button id="clearCanvasBtn" onclick="clearCanvas()">Clean up</button>
         </div>
     </div>
 
@@ -263,6 +262,10 @@
     // Функція перевірки, чи користувач є автором
     function isAuthor() {
       return author === "Anime0022";
+    }
+
+    function toggleMode() {
+      toggleModeBtn.click(); // Simulates button click
     }
 
     // Завантаження зображення з Firebase Storage
