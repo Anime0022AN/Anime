@@ -230,7 +230,7 @@
     let drawing = false;
     let erasing = false;
     let modeButton = document.querySelector('.controls button');
-    let author = localStorage.getItem('authorName') || prompt("Enter your name (only the author can delete):");
+    const author = "Anime0022";
     localStorage.setItem('authorName', author);
 
     window.onload = function () {
