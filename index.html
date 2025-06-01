@@ -224,12 +224,10 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
       <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
       <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
     
     <script>
-    // Встав свій firebaseConfig тут
     const firebaseConfig = {
       apiKey: "AIzaSyCvFA_7JsGYMljQGv2_BrqxJVbw3N8Hiaw",
       authDomain: "continue-13d12.firebaseapp.com",
@@ -240,7 +238,6 @@
       measurementId: "G-28GSE0P3JJ"
     };
 
-    // Ініціалізація Firebase
     firebase.initializeApp(firebaseConfig);
     const storage = firebase.storage();
 
@@ -252,19 +249,16 @@
     const toggleModeBtn = document.getElementById('toggleModeBtn');
     const clearCanvasBtn = document.getElementById('clearCanvasBtn');
 
-    // Запит імені користувача
     let author = localStorage.getItem('authorName');
     if (!author) {
-      author = prompt("Введіть ваше ім'я:");
+      author = prompt("Enter your name:");
       localStorage.setItem('authorName', author);
     }
 
-    // Функція перевірки, чи користувач є автором
     function isAuthor() {
       return author === "Anime0022";
     }
 
-    // Завантаження зображення з Firebase Storage
     function loadImage() {
       const storageRef = storage.ref('signature.png');
       storageRef.getDownloadURL()
@@ -274,25 +268,23 @@
           img.src = url;
         })
         .catch((error) => {
-          console.log("Зображення не знайдено:", error);
+          console.log("Image not found:", error);
         });
     }
 
-    // Збереження зображення у Firebase Storage
     function saveImage() {
       canvas.toBlob((blob) => {
         const storageRef = storage.ref('signature.png');
         storageRef.put(blob)
           .then(() => {
-            console.log("Зображення збережено.");
+            console.log("Image saved.");
           })
           .catch((error) => {
-            console.error("Помилка збереження:", error);
+            console.error("Saving error:", error);
           });
       });
     }
 
-    // Обробники подій для малювання
     canvas.addEventListener('mousedown', (e) => {
       drawing = true;
       ctx.beginPath();
@@ -320,36 +312,33 @@
       drawing = false;
     });
 
-    // Перемикання режиму малювання/стирання
     toggleModeBtn.addEventListener('click', () => {
       if (!isAuthor() && !erasing) {
-        alert("Тільки автор може використовувати гумку.");
+        alert("Only the author can use the eraser.");
         return;
       }
       erasing = !erasing;
-      toggleModeBtn.textContent = erasing ? "Режим: Гумка 🧽" : "Режим: Малювання ✏️";
+      toggleModeBtn.textContent = erasing ? "Mode: Eraser 🧽" : "Mode: Drawing ✏️";
     });
 
-    // Очищення полотна
     clearCanvasBtn.addEventListener('click', () => {
       if (!isAuthor()) {
-        alert("Тільки автор може очищати підписи.");
+        alert("Only the author can clear signatures.");
         return;
       }
-      if (confirm("Ви впевнені, що хочете очистити підписи?")) {
+      if (confirm("Are you sure you want to clear the signatures?")) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const storageRef = storage.ref('signature.png');
         storageRef.delete()
           .then(() => {
-            console.log("Зображення видалено.");
+            console.log("Image deleted.");
           })
           .catch((error) => {
-            console.error("Помилка видалення:", error);
+            console.error("Delete error:", error);
           });
       }
     });
 
-    // Завантаження зображення при завантаженні сторінки
     window.onload = loadImage;
   </script>
 </body>
