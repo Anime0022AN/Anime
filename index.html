@@ -224,24 +224,76 @@
             <button onclick="clearCanvas()">Clean up</button>
         </div>
     </div>
+
+    <!-- Firebase SDK -->
+      <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    
     <script>
+    // Встав свій firebaseConfig тут
+    const firebaseConfig = {
+      apiKey: "AIzaSyCvFA_7JsGYMljQGv2_BrqxJVbw3N8Hiaw",
+      authDomain: "continue-13d12.firebaseapp.com",
+      projectId: "continue-13d12",
+      storageBucket: "continue-13d12.firebasestorage.app",
+      messagingSenderId: "814687182273",
+      appId: "1:814687182273:web:74439099bc7c8e0e70a340",
+      measurementId: "G-28GSE0P3JJ"
+    };
+
+    // Ініціалізація Firebase
+    firebase.initializeApp(firebaseConfig);
+    const storage = firebase.storage();
+
     const canvas = document.getElementById('signatureCanvas');
     const ctx = canvas.getContext('2d');
     let drawing = false;
     let erasing = false;
-    let modeButton = document.querySelector('.controls button');
-    const author = "Anime0022";
-    localStorage.setItem('authorName', author);
 
-    window.onload = function () {
-      const savedData = localStorage.getItem('signature');
-      if (savedData) {
-        const img = new Image();
-        img.src = savedData;
-        img.onload = () => ctx.drawImage(img, 0, 0);
-      }
-    };
+    const toggleModeBtn = document.getElementById('toggleModeBtn');
+    const clearCanvasBtn = document.getElementById('clearCanvasBtn');
 
+    // Запит імені користувача
+    let author = localStorage.getItem('authorName');
+    if (!author) {
+      author = prompt("Введіть ваше ім'я:");
+      localStorage.setItem('authorName', author);
+    }
+
+    // Функція перевірки, чи користувач є автором
+    function isAuthor() {
+      return author === "Anime0022";
+    }
+
+    // Завантаження зображення з Firebase Storage
+    function loadImage() {
+      const storageRef = storage.ref('signature.png');
+      storageRef.getDownloadURL()
+        .then((url) => {
+          const img = new Image();
+          img.onload = () => ctx.drawImage(img, 0, 0);
+          img.src = url;
+        })
+        .catch((error) => {
+          console.log("Зображення не знайдено:", error);
+        });
+    }
+
+    // Збереження зображення у Firebase Storage
+    function saveImage() {
+      canvas.toBlob((blob) => {
+        const storageRef = storage.ref('signature.png');
+        storageRef.put(blob)
+          .then(() => {
+            console.log("Зображення збережено.");
+          })
+          .catch((error) => {
+            console.error("Помилка збереження:", error);
+          });
+      });
+    }
+
+    // Обробники подій для малювання
     canvas.addEventListener('mousedown', (e) => {
       drawing = true;
       ctx.beginPath();
@@ -250,7 +302,6 @@
 
     canvas.addEventListener('mousemove', (e) => {
       if (!drawing) return;
-
       if (erasing) {
         ctx.clearRect(e.offsetX - 5, e.offsetY - 5, 10, 10);
       } else {
@@ -259,49 +310,48 @@
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
       }
-      saveDrawing();
     });
 
     canvas.addEventListener('mouseup', () => {
       drawing = false;
-      saveDrawing();
+      saveImage();
     });
 
     canvas.addEventListener('mouseleave', () => {
       drawing = false;
     });
 
-    function saveDrawing() {
-      const dataURL = canvas.toDataURL();
-      localStorage.setItem('signature', dataURL);
-    }
-
-    function clearCanvas() {
-      if (confirm("Clear entire signature?")) {
-        if (isAuthor()) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          localStorage.removeItem('signature');
-        } else {
-          alert("Only the author can clear.");
-        }
-      }
-    }
-
-    function toggleMode() {
+    // Перемикання режиму малювання/стирання
+    toggleModeBtn.addEventListener('click', () => {
       if (!isAuthor() && !erasing) {
-        alert("Only the author can use the eraser.");
+        alert("Тільки автор може використовувати гумку.");
         return;
       }
-
       erasing = !erasing;
-      modeButton.textContent = erasing ? "Mode: Eraser 🧽" : "Mode: Drawing ✏️";
-    }
+      toggleModeBtn.textContent = erasing ? "Режим: Гумка 🧽" : "Режим: Малювання ✏️";
+    });
 
-    function isAuthor() {
-      const currentUser = author;
-      const savedAuthor = localStorage.getItem('authorName');
-      return currentUser === savedAuthor;
-    }
+    // Очищення полотна
+    clearCanvasBtn.addEventListener('click', () => {
+      if (!isAuthor()) {
+        alert("Тільки автор може очищати підписи.");
+        return;
+      }
+      if (confirm("Ви впевнені, що хочете очистити підписи?")) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const storageRef = storage.ref('signature.png');
+        storageRef.delete()
+          .then(() => {
+            console.log("Зображення видалено.");
+          })
+          .catch((error) => {
+            console.error("Помилка видалення:", error);
+          });
+      }
+    });
+
+    // Завантаження зображення при завантаженні сторінки
+    window.onload = loadImage;
   </script>
 </body>
 </html>
