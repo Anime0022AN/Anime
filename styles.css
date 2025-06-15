@@ -1,17 +1,15 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background: linear-gradient(to bottom, #0a0a0a, #1f001d);
     color: #ffffff;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
 }
 
 .container {
     padding: 20px;
     max-width: 100%;
-    background: linear-gradient(to bottom, #1f1f1f, #360032);
+    background: linear-gradient(to bottom, #0a0a0a, #1f001d);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     border-radius: 12px;
 }
@@ -47,23 +45,10 @@ body {
     box-shadow: 0 0 15px 5px #c400eb;
 }
 
-.stat {
-    border-radius: 10px;
-    padding: 10px 20px;
-    margin: 10px auto;
-    background-color: #1e1e1e;
-    max-width: 90%;
-    transition: transform 0.3s;
-}
-.stat:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 15px 5px #c400eb;
-}
-
-.info, .extra-info {
+.info {
     margin-top: 20px;
     padding: 15px;
-    background-color: #1e1e1e;
+    background: linear-gradient(to bottom right, #1f1f1f, #360032);
     border-radius: 10px;
     transition: transform 0.3s;
     max-width: 90%;
@@ -71,7 +56,7 @@ body {
     margin-right: auto;
 }
 
-.info:hover, .extra-info:hover {
+.info:hover {
     transform: scale(1.03);
     box-shadow: 0 0 15px 5px #c400eb;
 }
@@ -108,7 +93,6 @@ body {
     height: 20px;
 }
 .controls { margin-top: 10px; display: flex; gap: 10px; }
-canvas { border: 2px solid #000; background: #fff; cursor: crosshair; }
 
 .youtube { background-color: #FF0000; }
 .instagram { background-color: #C13584; }
@@ -136,7 +120,7 @@ canvas { border: 2px solid #000; background: #fff; cursor: crosshair; }
         width: 50vw;
     }
 
-    .stat, .info, .extra-info {
+    .info {
         padding: 10px;
     }
 }
