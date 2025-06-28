@@ -103,6 +103,35 @@
         </div>
     </div>
     
+    <div class="info">
+      <h2>YouTube Stats</h2>
+      <p id="youtube-subs">Loading subscriber count...</p>
+    </div>
+
+    <script>
+      const API_KEY = 'AIzaSyAnfKrtHmTnWfYRUfGux6-vGjNkYnZZN-4';
+      const CHANNEL_ID = 'UCznzAvCBjkE2ffOq-A-GvRw';
+
+      async function fetchYouTubeSubscribers() {
+        try {
+          const response = await fetch(
+            `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`
+          );
+          const data = await response.json();
+          const subs = data.items[0].statistics.subscriberCount;
+          document.getElementById('youtube-subs').textContent =
+            `👥 Subscribers: ${Number(subs).toLocaleString()}`;
+        } catch (error) {
+          document.getElementById('youtube-subs').textContent =
+            '❌ Unable to load subscriber count';
+          console.error('YouTube API Error:', error);
+        }
+      }
+
+      fetchYouTubeSubscribers();
+    </script>
+
+    
     <footer>
       <p>&copy; 2025 Anime0022♑. All rights reserved.</p>
     </footer>
