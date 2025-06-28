@@ -6,16 +6,17 @@
     <title>Anime0022♑</title>
     <link rel="icon" href="img/Anime0022.png">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <header>
+        <header data-aos="fade-down">
           <h1>Welcome to Anime0022♑ Official Site✔️</h1>
         </header>
-        <section class="profile">
+        <section class="profile" data-aos="zoom-in">
             <img src="img/Anime0022.png" alt="Anime0022 Profile Picture" class="profile-img" />
         </section>
-        <div class="info">
+        <div class="info" data-aos="fade-up">
             <h2>My Data</h2>
             <p>Gender - Boy</p>
             <p>Age - 20</p>
@@ -26,7 +27,7 @@
 
         <p>Follow me on my social media platforms!</p>
         
-        <div class="button-container">
+        <div class="button-container" data-aos="fade-up" data-aos-delay="200">
             <a href="https://www.youtube.com/channel/UCznzAvCBjkE2ffOq-A-GvRw" target="_blank" class="social-button youtube">
                 <img src="https://cdn3.iconfinder.com/data/icons/social-network-30/512/social-06-512.png" alt="YouTube"> YouTube
             </a>
@@ -126,8 +127,19 @@
 
       fetchYouTubeSubscribers();
     </script>
+    <script>
+      window.addEventListener("load", () => {
+        document.body.classList.add("loaded");
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true
+      });
+    </script>
 
-    
     <footer>
       <p>&copy; 2025 Anime0022♑. All rights reserved.</p>
     </footer>
