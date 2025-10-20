@@ -102,16 +102,7 @@ body.loaded {
 .youtube { background-color: #FF0000; }
 .instagram { background-color: #C13584; }
 .tiktok { background-color: #000000; }
-.discord { background-color: #7289DA; }
-.Telegram { background-color: #0088cc; }
-.x { background-color: #000000; }
 .twitch { background-color: #9146ff; }
-.spotify { background-color: #1db954; }
-.steam { background-color: #1B2838; }
-.jutsu { background-color: #90ff15; }
-.pinterest { background-color: #f7e8d4; }
-.blysky { background-color: #87ceeb; }
-.reddit { background-color: #FF5700; }
 
 .video-container {
   position: relative;
@@ -161,5 +152,6 @@ html {
         padding: 10px;
     }
 }
+
 
 
