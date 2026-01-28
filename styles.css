@@ -103,7 +103,7 @@ body.loaded {
 .instagram { background-color: #C13584; }
 .tiktok { background-color: #000000; }
 .twitch { background-color: #9146ff; }
-.pinterest { background-color: #E60023; }
+.pinterest { background-color: #FF0000; }
 
 .video-container {
   position: relative;
@@ -153,6 +153,7 @@ html {
         padding: 10px;
     }
 }
+
 
 
 
